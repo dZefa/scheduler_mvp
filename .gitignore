@@ -1,0 +1,12 @@
+# Node Modules
+
+*/node_modules/
+
+# OPs
+
+*/package-lock.json
+client/dist/
+
+#sensitive
+
+*/.env
