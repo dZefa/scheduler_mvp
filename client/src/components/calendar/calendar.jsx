@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import BigCalendar from 'react-big-calendar';
 
-class CalanderTab extends Component {
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+
+class CalendarTab extends Component {
   constructor(props) {
     super(props);
   }
@@ -16,15 +18,20 @@ class CalanderTab extends Component {
 
     return (
       <div>
+        <h1>{roomInfo.name}</h1>
         <BigCalendar
           events={roomInfo.timeslots}
           step={15}
           timeslots={8}
           defaultView="week"
+          views={['week']}
+          min={new Date('2018-02-12T16:00:00.113Z')}
+          max={new Date('2018-02-13T03:00:00.113Z')}
+          toolbar={false}
         />
       </div>
     )
   }
 };
 
-export default CalanderTab;
+export default CalendarTab;
