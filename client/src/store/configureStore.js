@@ -1,5 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { createBrowserHistory } from 'history';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'localforage';
 import { routerMiddleware } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
@@ -13,9 +15,17 @@ const enhancer = applyMiddleware(
   router,
   createLogger()
 );
+const persistConfig = {
+  key: 'root',
+  storage
+};
+
+const persistedReducer = persistReducer(persistConfig, Reducer);
 
 function configureStore() {
-  return createStore(Reducer, enhancer);
+  let store = createStore(persistedReducer, enhancer);
+  let persistor = persistStore(store);
+  return { store, persistor };
 };
 
 export { configureStore, history };
