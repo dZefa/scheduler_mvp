@@ -49,4 +49,21 @@ const updateRoom = (id) => {
   });
 };
 
-export { addRoom, deleteRoom, updateRoom };
+const getRooms = () => {
+  return new Promise((resolve, reject) => {
+    Room.findAll()
+      .then(rooms => {
+        const roomData = [];
+        for (let i = 0; i < rooms.length; i++) {
+          roomData.push(rooms[i].dataValues);
+        }
+        resolve(roomData);
+      })
+      .catch(err => {
+        console.log(`Error grabbing all Rooms. Error: ${err}`);
+        reject(err);
+      });
+  });
+};
+
+export { addRoom, deleteRoom, updateRoom, getRooms };
