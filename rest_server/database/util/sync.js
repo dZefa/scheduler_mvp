@@ -2,6 +2,7 @@ import { db } from '../index';
 import { User } from '../models/user';
 import { Room } from '../models/room';
 import { Timeslot } from '../models/timeslot';
+import { Contact } from '../models/contact';
 
 const syncDB = (bool=false) => {
   db.authenticate()
@@ -10,6 +11,13 @@ const syncDB = (bool=false) => {
       User.sync({ force: bool })
         .then(() => {
           console.log(`User table synced`);
+          Contact.sync({ force: true })
+            .then(() => {
+              console.log(`Contact table synced`);
+            })
+            .catch(err => {
+              console.log(`Error syncing Contact table. Error: ${err.message}`);
+            });
         })
         .catch(err => {
           console.log(`Error syncing User table. Error: ${err.message}`)
