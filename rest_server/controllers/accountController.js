@@ -1,4 +1,5 @@
 import { getPW, createUser, updateUser } from '../database/controllers/userControllers';
+import { addContact, getAllContacts } from '../database/controllers/contactController';
 
 const checkLogin = (req, res) => {
   getPW(req.body.login)
@@ -10,7 +11,7 @@ const checkLogin = (req, res) => {
       }
     })
     .catch(err => {
-      res.status(500).send(err);
+      res.sendStatus(500);
     });
 };
 
@@ -20,7 +21,7 @@ const createLogin = (req, res) => {
       res.status(201).send(success);
     })
     .catch(err => {
-      res.status(500).send(err);
+      res.sendStatus(500);
     });
 };
 
@@ -30,8 +31,28 @@ const updateLogin = (req, res) => {
       res.status(200).send(success);
     })
     .catch(err => {
-      res.status(500).send(err);
+      res.sendStatus(500);
     });
 };
 
-export { checkLogin, createLogin, updateLogin };
+const createContact = (req, res) => {
+  addContact(req.body, req.params.id)
+    .then(success => {
+      res.status(201).send(success);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+};
+
+const getContacts = (req, res) => {
+  getAllContacts(req.params.id)
+    .then(success => {
+      res.status(200).send(success);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+};
+
+export { checkLogin, createLogin, updateLogin, createContact, getContacts };
