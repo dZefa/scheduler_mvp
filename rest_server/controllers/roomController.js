@@ -35,18 +35,16 @@ const getAllRoomTimeslots = (req, res) => {
   const roomInfo = [];
 
   getRooms()
-    .then(rooms => {
+    .then(async rooms => {
       for (let i = 0; i < rooms.length; i++) {
         roomInfo[i] = {
           id: rooms[i].id,
           name: rooms[i].name,
           timeslots: []
         };
-        getTimeslots(rooms[i].id)
+        await getTimeslots(roomInfo[i].id)
           .then(timeslots => {
-            for(let j = 0; j < timeslots.length; j++) {
-              roomInfo[i].timeslots.push(timeslots[j]);
-            }
+            roomInfo[i].timeslots = timeslots;
           });
       }
       res.status(200).send({ result: roomInfo });
