@@ -5,12 +5,16 @@ import { User } from './user';
 import { Room } from './room';
 
 const Timeslot = db.define('Timeslot', {
-  start: {
+  title: {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  start: {
+    type: Sequelize.DATE,
+    allowNull: false,
+  },
   end: {
-    type: Sequelize.STRING,
+    type: Sequelize.DATE,
     allowNull: false,
   },
   finished: {
@@ -20,8 +24,8 @@ const Timeslot = db.define('Timeslot', {
   }
 });
 
-Timeslot.belongsTo(User, { foreignKey: 'userId', allowNull: false, onDelete: 'CASCADE' });
-Timeslot.belongsTo(Room, { foreignKey: 'roomId', allowNull: false, onDelete: 'CASCADE' });
+Timeslot.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
+Timeslot.belongsTo(Room, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 
 User.hasMany(Timeslot);
 Room.hasMany(Timeslot);
