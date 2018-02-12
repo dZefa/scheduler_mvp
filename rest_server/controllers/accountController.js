@@ -3,11 +3,11 @@ import { addContact, getAllContacts } from '../database/controllers/contactContr
 
 const checkLogin = (req, res) => {
   getPW(req.body.login)
-    .then(pw => {
-      if (pw !== req.body.password) {
+    .then(user => {
+      if (user.password !== req.body.password) {
         res.sendStatus(403);
       } else {
-        res.status(200).send(`Authorized`);
+        res.status(200).send({ result: user });
       }
     })
     .catch(err => {

@@ -7,7 +7,7 @@ const getPW = (login) => {
   
     User.findOne({ where: { login } })
       .then(user => {
-        resolve(user.password);
+        resolve(user);
       })
       .catch(err => {
         console.log(`Error finding login. Error: ${err}`);
