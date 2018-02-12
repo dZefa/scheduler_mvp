@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 
 import { getAllRoomData } from '../../actions/roomActions';
 
+import CalendarView from '../calendar/calendarView.jsx';
+
 class LandingPage extends Component {
   constructor(props) {
     super(props);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { getRoomData, roomData } = this.props;
 
     if (roomData.length === 0) {
@@ -19,10 +21,9 @@ class LandingPage extends Component {
 
   render() {
     const { roomData } = this.props;
-
     return (
       <div>
-        Landing
+        <CalendarView roomData={roomData} />
       </div>
     )
   }
