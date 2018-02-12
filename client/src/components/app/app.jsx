@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
+import Nav from '../navbar/navbar.jsx';
 import Routes from './routes.jsx';
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Nav />
         <Routes />
       </div>
     )
