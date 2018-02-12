@@ -4,7 +4,7 @@ import { Timeslot } from '../models/timeslot';
 
 const getTimeslots = (id) => {
   return new Promise((resolve, reject) => {
-    Timeslot.findAll({ where: { roomId: id, finished: false } })
+    Timeslot.findAll({ where: { RoomId: id, finished: false } })
       .then(timeslots => {
         const timeslotData = [];
         for (let i = 0; i < timeslots.length; i++) {
