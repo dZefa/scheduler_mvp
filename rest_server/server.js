@@ -5,6 +5,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 import { Router } from './routes';
+import { syncDB } from './database/util/sync';
 
 const app = express();
 
@@ -14,5 +15,7 @@ app.use(morgan('short'));
 app.use(cors());
 
 app.use('/api', Router);
+
+syncDB();
 
 export { app };
