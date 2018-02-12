@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { checkLogin, createLogin, updateLogin } from './controllers/accountController';
+import { checkLogin, createLogin, updateLogin, createContact, getContacts } from './controllers/accountController';
 import { createRoom, removeRoom, updateRoom, getAllRoomTimeslots } from './controllers/roomController';
 import { scheduleTimeslot, cancelTimeslot, updateTimeslotInfo } from './controllers/timeslotController';
 
@@ -12,6 +12,10 @@ Router.route('/login')
 
 Router.route('/signup')
   .post(createLogin);
+
+Router.route('/contact/:id')
+  .post(createContact)
+  .get(getContacts);
 
 Router.route('/room')
   .get(getAllRoomTimeslots)
