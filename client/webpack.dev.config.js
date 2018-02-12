@@ -8,10 +8,6 @@ const BUILD_DIR = path.resolve(__dirname, './dist');
 const TEMPLATE_DIR = path.resolve(__dirname, './src/template.index.html');
 const ENV_DIR = path.resolve(__dirname, './.env');
 
-const cleanOptions = {
-  verbose: true,
-};
-
 module.exports = {
   entry: {
     app: APP_DIR,
