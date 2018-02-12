@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BigCalendar from 'react-big-calendar';
 
 class CalanderTab extends Component {
   constructor(props) {
@@ -6,9 +7,22 @@ class CalanderTab extends Component {
   }
 
   render() {
-    const {  } = this.props;
+    const { roomInfo } = this.props;
+
+    roomInfo.timeslots.forEach(timeslot => {
+      timeslot.start = new Date(timeslot.start);
+      timeslot.end = new Date(timeslot.end);
+    });
+
     return (
-      <div>Calendar Tab</div>
+      <div>
+        <BigCalendar
+          events={roomInfo.timeslots}
+          step={15}
+          timeslots={8}
+          defaultView="week"
+        />
+      </div>
     )
   }
 };

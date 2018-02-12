@@ -21,7 +21,7 @@ class CalendarView extends Component {
       <div>
         {
           roomData.map((room, i) => {
-            return <CalendarTab key={`${room.name + i}`} name={room.name} id={room.id} timeslots={room.timeslots} />;
+            return <CalendarTab key={`${room.name + i}`} roomInfo={room} />;
           })
         }
       </div>
