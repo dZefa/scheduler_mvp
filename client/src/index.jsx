@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import { configureStore, history } from './store/configureStore';
 
-import App from './components/app.jsx';
+import App from './components/app/app.jsx';
 
 const store = configureStore();
 
