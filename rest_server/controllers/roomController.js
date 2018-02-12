@@ -38,6 +38,7 @@ const getAllRoomTimeslots = (req, res) => {
     .then(rooms => {
       for (let i = 0; i < rooms.length; i++) {
         roomInfo[i] = {
+          id: rooms[i].id,
           name: rooms[i].name,
           timeslots: []
         };
