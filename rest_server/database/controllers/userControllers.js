@@ -64,19 +64,6 @@ const getAllUsers = () => {
   });
 };
 
-const getAdminId = () => {
-  return new Promise((resolve, reject) => {
-    User.findOne({ where: { type: "admin" } })
-      .then(data => {
-        resolve(data.dataValues.id);
-      })
-      .catch(err => {
-        console.log(`Error grabbing Admin ID. Error: ${err}`);
-        reject(err);
-      });
-  });
-};
-
 const deleteUser = (id) => {
   return new Promise((resolve, reject) => {
     User.destroy({ where: { id } })
@@ -94,4 +81,4 @@ const deleteUser = (id) => {
   });
 };
 
-export { getPW, createUser, updateUser, getAllUsers, getAdminId, deleteUser };
+export { getPW, createUser, updateUser, getAllUsers, deleteUser };

@@ -1,4 +1,4 @@
-import { getPW, createUser, updateUser, getAllUsers, getAdminId, deleteUser } from '../database/controllers/userControllers';
+import { getPW, createUser, updateUser, getAllUsers, deleteUser } from '../database/controllers/userControllers';
 import { addContact, getAllContacts, updateContact, deleteContact } from '../database/controllers/contactController';
 
 const checkLogin = (req, res) => {
@@ -73,19 +73,6 @@ const getLogins = (req, res) => {
     });
 };
 
-const getAdminContacts = (req, res) => {
-  getAdminId()
-    .then(id => {
-      getAllContacts(id)
-        .then(data => {
-          res.status(200).send({ result: data });
-        })
-    })
-    .catch(err => {
-      res.sendStatus(500);
-    });
-};
-
 const updateContactInfo = (req, res) => {
   updateContact(req.body, req.params.id)
     .then(success => {
@@ -116,4 +103,4 @@ const deleteLoginInfo = (req, res) => {
     });
 };
 
-export { checkLogin, createLogin, updateLogin, createContact, getContacts, getLogins, getAdminContacts, updateContactInfo, deleteContactInfo, deleteLoginInfo };
+export { checkLogin, createLogin, updateLogin, createContact, getContacts, getLogins, updateContactInfo, deleteContactInfo, deleteLoginInfo };

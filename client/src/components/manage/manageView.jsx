@@ -13,7 +13,6 @@ class ManageView extends Component {
 
     this.state = {
       accounts: [],
-      adminContacts: [],
       rooms: [],
       refreshed: false,
     };
@@ -27,7 +26,6 @@ class ManageView extends Component {
     if (!refreshed) {
       this.getAccounts();
       this.getRooms();
-      this.getAdminContacts();
       this.setState({
         refreshed: true,
       });
@@ -50,18 +48,6 @@ class ManageView extends Component {
       })
       .catch(err => {
         console.log(`ERROR in getaccounts. Error: ${err}`);
-      });
-  }
-
-  getAdminContacts() {
-    axios.get(`${process.env.REST_SERVER_URL}/api/admin/contacts`)
-      .then(({ data }) => {
-        this.setState({
-          adminContacts: data.result,
-        });
-      })
-      .catch(err => {
-        console.log(`Error in getAdminContacts. Error: ${err}`);
       });
   }
 
