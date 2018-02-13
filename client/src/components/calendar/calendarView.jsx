@@ -9,9 +9,16 @@ class CalendarView extends Component {
   }
 
   render() {
-    const { roomData } = this.props;
+    const { roomData, view } = this.props;
+    let defaultView = '';
 
-    if ( roomData.length === 0) {
+    if (view === undefined) {
+      defaultView = 'week';
+    } else {
+      defaultView = view;
+    }
+
+    if (roomData.length === 0) {
       return (
         <Loading />
       )
@@ -21,7 +28,7 @@ class CalendarView extends Component {
       <div>
         {
           roomData.map((room, i) => {
-            return <CalendarTab key={`${room.name + i}`} roomInfo={room} />;
+            return <CalendarTab key={`${room.name + i}`} roomInfo={room} view={defaultView} />;
           })
         }
       </div>

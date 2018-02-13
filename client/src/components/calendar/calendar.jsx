@@ -9,7 +9,7 @@ class CalendarTab extends Component {
   }
 
   render() {
-    const { roomInfo } = this.props;
+    const { roomInfo, view } = this.props;
 
     roomInfo.timeslots.forEach(timeslot => {
       timeslot.start = new Date(timeslot.start);
@@ -23,8 +23,8 @@ class CalendarTab extends Component {
           events={roomInfo.timeslots}
           step={15}
           timeslots={8}
-          defaultView="week"
-          views={['week']}
+          defaultView={view}
+          views={['week', 'day']}
           min={new Date('2018-02-12T16:00:00.113Z')}
           max={new Date('2018-02-13T03:00:00.113Z')}
           toolbar={false}
