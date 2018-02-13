@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { getLogins, checkLogin, createLogin, updateLogin, createContact, getContacts, updateContactInfo, deleteContactInfo, deleteLoginInfo } from './controllers/accountController';
-import { createRoom, removeRoom, updateRoom, getAllRoomTimeslots, getAllRooms } from './controllers/roomController';
+import { createRoom, removeRoom, updateRoomName, getAllRoomTimeslots, getAllRooms } from './controllers/roomController';
 import { scheduleTimeslot, cancelTimeslot, updateTimeslotInfo } from './controllers/timeslotController';
 
 const Router = express.Router();
@@ -32,7 +32,7 @@ Router.route('/rooms')
 
 Router.route('/room/:id')
   .delete(removeRoom)
-  .put(updateRoom);
+  .put(updateRoomName);
 
 Router.route('/timeslot')
   .post(scheduleTimeslot);

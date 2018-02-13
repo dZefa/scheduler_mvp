@@ -22,7 +22,7 @@ const removeRoom = (req, res) => {
 };
 
 const updateRoomName = (req, res) => {
-  updateRoom(req.params.id)
+  updateRoom(req.params.id, req.body)
     .then(success => {
       res.status(200).send(success);
     })
@@ -64,4 +64,4 @@ const getAllRooms = (req, res) => {
     });
 };
 
-export { createRoom, removeRoom, updateRoom, getAllRoomTimeslots, getAllRooms };
+export { createRoom, removeRoom, updateRoomName, getAllRoomTimeslots, getAllRooms };

@@ -32,9 +32,9 @@ const deleteRoom = (id) => {
   });
 };
 
-const updateRoom = (id) => {
+const updateRoom = (id, roomObj) => {
   return new Promise((resolve, reject) => {
-    Room.update({ name }, { where: { id }})
+    Room.update(roomObj, { where: { id }})
       .then((updated) => {
         if (updated[0] === 0) {
           reject(Error(`Room id not found`));
