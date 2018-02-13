@@ -8,7 +8,9 @@ const Router = express.Router();
 
 Router.route('/login')
   .get(getLogins)
-  .post(checkLogin)
+  .post(checkLogin);
+
+Router.route('/login/:id')
   .put(updateLogin)
   .delete(deleteLoginInfo);
 
