@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import Loading from '../loading/loading.jsx';
 import ManageGroupsView from './manageGroups/manageGroupsView.jsx';
+import ManageRoomsView from './manageRooms/manageRoomsView.jsx';
 
 class ManageView extends Component {
   constructor(props) {
@@ -77,6 +78,7 @@ class ManageView extends Component {
       return (
         <div>
           <ManageGroupsView accounts={accounts} refreshPage={this.refreshPage} />
+          <ManageRoomsView rooms={rooms} refreshPage={this.refreshPage} />
         </div>
       )
     }
