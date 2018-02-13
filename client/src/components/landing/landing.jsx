@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { getAllRoomData } from '../../actions/roomActions';
 
@@ -20,7 +21,14 @@ class LandingPage extends Component {
   }
 
   render() {
-    const { roomData } = this.props;
+    const { roomData, authorized, user } = this.props;
+
+    if (authorized && user.type === 'group' && user.isNew) {
+      return (
+        <Redirect to="/contacts" />
+      )
+    }
+
     return (
       <div>
         <CalendarView roomData={roomData} />
@@ -32,6 +40,8 @@ class LandingPage extends Component {
 const LandingState = (state) => {
   return {
     roomData: state.room.roomData,
+    user: state.auth.user,
+    authorized: state.auth.authorized,
   }
 };
 
