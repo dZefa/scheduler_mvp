@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios';
 
 import Loading from '../loading/loading.jsx';
+import ManageGroupsView from './manageGroups/manageGroupsView.jsx';
 
 class ManageView extends Component {
   constructor(props) {
@@ -17,9 +18,7 @@ class ManageView extends Component {
       refreshed: false,
     };
 
-    this.getAccounts = this.getAccounts.bind(this);
-    this.getAdminContacts = this.getAdminContacts.bind(this);
-    this.getRooms = this.getRooms.bind(this);
+    this.refreshPage = this.refreshPage.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +32,13 @@ class ManageView extends Component {
         refreshed: true,
       });
     }
+  }
+
+  refreshPage() {
+    this.setState({
+      refreshed: false,
+    });
+    this.componentDidMount();
   }
 
   getAccounts() {
@@ -83,7 +89,9 @@ class ManageView extends Component {
 
     if (accounts.length > 0 && rooms.length > 0 && refreshed) {
       return (
-        <div>Manage View</div>
+        <div>
+          <ManageGroupsView accounts={accounts} refreshPage={this.refreshPage} />
+        </div>
       )
     }
 
