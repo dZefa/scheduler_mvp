@@ -26,7 +26,7 @@ const createLogin = (req, res) => {
 };
 
 const updateLogin = (req, res) => {
-  updateUser(req.body)
+  updateUser(req.body, req.params.id)
     .then(success => {
       res.status(200).send(success);
     })
@@ -116,4 +116,4 @@ const deleteLoginInfo = (req, res) => {
     });
 };
 
-export { checkLogin, createLogin, updateLogin, createContact, getContacts, getLogins, getAdminContacts, updateContactInfo, deleteContactInfo };
+export { checkLogin, createLogin, updateLogin, createContact, getContacts, getLogins, getAdminContacts, updateContactInfo, deleteContactInfo, deleteLoginInfo };

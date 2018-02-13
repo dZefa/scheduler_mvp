@@ -29,10 +29,10 @@ const createUser = (userObj) => {
   });
 };
 
-const updateUser = (userObj) => {
+const updateUser = (userObj, id) => {
   return new Promise((resolve, reject) => {
     User.update(userObj, 
-      { where: { login: userObj.login }
+      { where: { id }
     })
       .then((updated) => {
         if (updated[0] === 0) {
