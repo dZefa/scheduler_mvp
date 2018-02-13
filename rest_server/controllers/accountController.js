@@ -1,5 +1,5 @@
-import { getPW, createUser, updateUser, getAllUsers, getAdminId } from '../database/controllers/userControllers';
-import { addContact, getAllContacts } from '../database/controllers/contactController';
+import { getPW, createUser, updateUser, getAllUsers, getAdminId, deleteUser } from '../database/controllers/userControllers';
+import { addContact, getAllContacts, updateContact, deleteContact } from '../database/controllers/contactController';
 
 const checkLogin = (req, res) => {
   getPW(req.body.login)
@@ -86,4 +86,24 @@ const getAdminContacts = (req, res) => {
     });
 };
 
-export { checkLogin, createLogin, updateLogin, createContact, getContacts, getLogins, getAdminContacts };
+const updateContactInfo = (req, res) => {
+  updateContact(req.body, req.params.id)
+    .then(success => {
+      res.status(200).send(success);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+};
+
+const deleteContactInfo = (req, res) => {
+  deleteContact(req.params.id)
+    .then(success => {
+      res.status(200).send(success);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+};
+
+export { checkLogin, createLogin, updateLogin, createContact, getContacts, getLogins, getAdminContacts, updateContactInfo, deleteContactInfo };
