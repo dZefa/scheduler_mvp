@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getLogins, checkLogin, createLogin, updateLogin, createContact, getContacts, getAdminContacts } from './controllers/accountController';
+import { getLogins, checkLogin, createLogin, updateLogin, createContact, getContacts, getAdminContacts, updateContactInfo, deleteContactInfo } from './controllers/accountController';
 import { createRoom, removeRoom, updateRoom, getAllRoomTimeslots, getAllRooms } from './controllers/roomController';
 import { scheduleTimeslot, cancelTimeslot, updateTimeslotInfo } from './controllers/timeslotController';
 
@@ -9,7 +9,8 @@ const Router = express.Router();
 Router.route('/login')
   .get(getLogins)
   .post(checkLogin)
-  .put(updateLogin);
+  .put(updateLogin)
+  .delete(deleteLoginInfo);
 
 Router.route('/signup')
   .post(createLogin);
@@ -18,8 +19,10 @@ Router.route('/admin/contacts')
   .get(getAdminContacts);
 
 Router.route('/contact/:id')
+  .put(updateContactInfo)
   .post(createContact)
-  .get(getContacts);
+  .get(getContacts)
+  .delete(deleteContactInfo);
 
 Router.route('/room')
   .get(getAllRoomTimeslots)
