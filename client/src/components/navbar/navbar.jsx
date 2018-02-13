@@ -20,8 +20,9 @@ class Navbar extends Component {
       <div>
         <Link to="/">HOME</Link>
         { !authorized && <Link to="/login" >LOGIN</Link> }
-        { authorized && type === 'admin' && <AdminNav />}
-        { authorized && type === 'group' && <GroupNav />}
+        { authorized && type === 'admin' && <AdminNav /> }
+        { authorized && type === 'group' && <GroupNav /> }
+        { authorized && <Link to="/timeslots">Timeslots</Link> }
         { authorized && 
           <div onClick={(e) => {
             e.preventDefault();
