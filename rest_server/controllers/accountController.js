@@ -1,4 +1,4 @@
-import { getPW, createUser, updateUser, getAllUsers } from '../database/controllers/userControllers';
+import { getPW, createUser, updateUser, getAllUsers, getAdminId } from '../database/controllers/userControllers';
 import { addContact, getAllContacts } from '../database/controllers/contactController';
 
 const checkLogin = (req, res) => {
@@ -57,12 +57,32 @@ const getContacts = (req, res) => {
 
 const getLogins = (req, res) => {
   getAllUsers()
-    .then(users => {
-      res.status(200).send({ result: users });
+    .then(async (users) => {
+      const userObj = [];
+      for (let i = 0; i < users.length; i++) {
+        await getAllContacts(users[i].id)
+          .then(data => {
+            user[i].contacts = data;
+          });
+      }
+      res.status(200).send(userObj);
     })
     .catch(err => {
       res.sendStatus(500);
-    })
-}
+    });
+};
 
-export { checkLogin, createLogin, updateLogin, createContact, getContacts, getLogins };
+const getAdminContacts = (req, res) => {
+  getAdminId()
+    .then(id => {
+      getAllContacts(id)
+        .then(data => {
+          res.status(200).send({ result: data });
+        })
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+};
+
+export { checkLogin, createLogin, updateLogin, createContact, getContacts, getLogins, getAdminContacts };
