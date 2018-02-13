@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class GroupNav extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class GroupNav extends Component {
 
   render() {
     return (
-      <div>Group Nav</div>
+      <Link to="/contacts">Contacts</Link>
     )
   }
 };
