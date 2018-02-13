@@ -32,6 +32,18 @@ class ManageGroups extends Component {
       });
   }
 
+  deleteGroup(id) {
+    const { refreshPage } = this.props;
+
+    axios.delete(`${process.env.REST_SERVER_URL}/api/login/${id}`)
+      .then(success => {
+        refreshPage();
+      })
+      .catch(err => {
+        console.log(`Error inside deleteGroup. Error: ${err}`);
+      });
+  }
+
   setEmail(text) {
     this.setState({
       email: text,
@@ -103,9 +115,21 @@ class ManageGroups extends Component {
     });
   }
 
+  updateGroup(id, groupObj) {
+    const { refreshPage } = this.props;
+
+    axios.put(`${process.env.REST_SERVER_URL}/api/login/${id}`, groupObj)
+      .then(success => {
+        refreshPage();
+      })
+      .catch(err => {
+        console.log(`Error inside updateGroup. Error: ${err}`);
+      });
+  }
+
   render() {
     const { account, refreshPage } = this.props;
-    const { addContacts, name, email, editGroup } = this.state;
+    const { addContacts, name, email, editGroup, login, password, groupName, type, isNew } = this.state;
     let adminSelect = false;
     let groupSelect = false;
     let isTrue = false;
@@ -136,17 +160,22 @@ class ManageGroups extends Component {
             <input type="text" placeholder={`Login: ${account.login}`} />
             <input type="text" placeholder={`Password: ${account.password}`} />
             <input type="text" placeholder={`Group Name: ${account.groupName}`} />
-            <select onChange={(e) => {this.setType(e.target.value)}}>
-              <option value="admin" selected={adminSelect}>Admin</option>
-              <option value="group" selected={groupSelect}>Group</option>
+            <select onChange={(e) => {this.setType(e.target.value)}} defaultValue={account.type}>
+              <option value="admin">Admin</option>
+              <option value="group">Group</option>
             </select>
-            <select onChange={(e) => {this.setIsNew(e.target.value)}}>
-              <option value={true} selected={isTrue} >True</option>
-              <option value={false} selected={isFalse} >False</option>
+            <select onChange={(e) => {this.setIsNew(e.target.value)}} defaultValue={account.isNew}>
+              <option value={true}>True</option>
+              <option value={false}>False</option>
             </select>
             <button type="button" onClick={(e) => {
               e.preventDefault();
-            }}>Submit</button>
+              this.updateGroup(account.id, { login, password, groupName, type, isNew });
+            }}>Submit Changes</button>
+            <button type="button" onClick={(e) => {
+              e.preventDefault();
+              this.deleteGroup(account.id);
+            }}>DELETE GROUP</button>
           </form> :
           <div>
             <h2>CONTACT-LIST</h2>
