@@ -77,4 +77,21 @@ const getAdminId = () => {
   });
 };
 
-export { getPW, createUser, updateUser, getAllUsers, getAdminId };
+const deleteUser = (id) => {
+  return new Promise((resolve, reject) => {
+    User.destroy({ where: { id } })
+      .then(destroyed => {
+        if (destroyed !== 1) {
+          reject(Error(`Error finding User to delete`));
+        } else {
+          resolve(`User deleted`);
+        }
+      })
+      .catch(err => {
+        console.log(`Error deleting user. Error: ${err}`);
+        reject(err);
+      });
+  });
+};
+
+export { getPW, createUser, updateUser, getAllUsers, getAdminId, deleteUser };
