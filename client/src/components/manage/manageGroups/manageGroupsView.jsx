@@ -67,7 +67,7 @@ class ManageGroupsView extends Component {
     return (
       <div>
         {
-          addGroup ? 
+          addGroup && 
           <form>
             <input type="text" placeholder={'Login'} onChange={(e) => {this.setLogin(e.target.value)}} />
             <input type="text" placeholder={'Password'} onChange={(e) => {this.setPW(e.target.value)}} />
@@ -85,13 +85,15 @@ class ManageGroupsView extends Component {
               }
 
               this.addGroup({ groupName, login, password, type, isNew });
-            }}>Add Group</button>
-          </form> :
-          <button type="button" onClick={(e) => {
-            e.preventDefault();
-            this.toggleAddGroup();
-          }}>Add Group</button>
+            }}>ADD GROUP</button>
+          </form>
         }
+        <button type="button" onClick={(e) => {
+          e.preventDefault();
+          this.toggleAddGroup();
+        }}>
+          { addGroup ? 'CANCEL' : 'ADD GROUP' }
+        </button>
         {
           accounts.map((account, i) => (
             <ManageGroups key={`account${i}`} account={account} refreshPage={refreshPage} />
