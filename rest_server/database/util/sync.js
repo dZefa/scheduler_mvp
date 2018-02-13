@@ -11,7 +11,7 @@ const syncDB = (bool=false) => {
       User.sync({ force: bool })
         .then(() => {
           console.log(`User table synced`);
-          Contact.sync({ force: true })
+          Contact.sync({ force: bool })
             .then(() => {
               console.log(`Contact table synced`);
             })
