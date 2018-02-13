@@ -106,4 +106,14 @@ const deleteContactInfo = (req, res) => {
     });
 };
 
+const deleteLoginInfo = (req, res) => {
+  deleteUser(req.params.id)
+    .then(success => {
+      res.status(200).send(success);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+};
+
 export { checkLogin, createLogin, updateLogin, createContact, getContacts, getLogins, getAdminContacts, updateContactInfo, deleteContactInfo };
