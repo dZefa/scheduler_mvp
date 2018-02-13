@@ -62,10 +62,11 @@ const getLogins = (req, res) => {
       for (let i = 0; i < users.length; i++) {
         await getAllContacts(users[i].id)
           .then(data => {
-            user[i].contacts = data;
-          });
+            users[i].contacts = data;
+            userObj.push(users[i]);
+          })
       }
-      res.status(200).send(userObj);
+      res.status(200).send({ result: userObj });
     })
     .catch(err => {
       res.sendStatus(500);
