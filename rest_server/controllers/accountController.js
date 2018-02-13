@@ -48,7 +48,7 @@ const createContact = (req, res) => {
 const getContacts = (req, res) => {
   getAllContacts(req.params.id)
     .then(success => {
-      res.status(200).send(success);
+      res.status(200).send({ result: success });
     })
     .catch(err => {
       res.sendStatus(500);
