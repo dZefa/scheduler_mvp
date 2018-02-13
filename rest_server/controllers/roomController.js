@@ -51,7 +51,17 @@ const getAllRoomTimeslots = (req, res) => {
     })
     .catch(err => {
       res.sendStatus(500);
-    })
-}
+    });
+};
 
-export { createRoom, removeRoom, updateRoom, getAllRoomTimeslots };
+const getAllRooms = (req, res) => {
+  getRooms()
+    .then(rooms => {
+      res.status(200).send({ result: rooms });
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+};
+
+export { createRoom, removeRoom, updateRoom, getAllRoomTimeslots, getAllRooms };

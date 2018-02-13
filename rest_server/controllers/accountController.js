@@ -1,4 +1,4 @@
-import { getPW, createUser, updateUser } from '../database/controllers/userControllers';
+import { getPW, createUser, updateUser, getAllUsers } from '../database/controllers/userControllers';
 import { addContact, getAllContacts } from '../database/controllers/contactController';
 
 const checkLogin = (req, res) => {
@@ -55,4 +55,14 @@ const getContacts = (req, res) => {
     });
 };
 
-export { checkLogin, createLogin, updateLogin, createContact, getContacts };
+const getLogins = (req, res) => {
+  getAllUsers()
+    .then(users => {
+      res.status(200).send({ result: users });
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    })
+}
+
+export { checkLogin, createLogin, updateLogin, createContact, getContacts, getLogins };
