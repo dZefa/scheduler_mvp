@@ -19,7 +19,7 @@ class Navbar extends Component {
     return (
       <div>
         <Link to="/">HOME</Link>
-        <Link to="/login" >LOGIN</Link>
+        { !authorized && <Link to="/login" >LOGIN</Link> }
         { authorized && type === 'admin' && <AdminNav />}
         { authorized && type === 'group' && <GroupNav />}
         { authorized && 
