@@ -108,7 +108,7 @@ class Timeslot extends Component {
 
   render() {
     const { startArr, startSelected, endSelected, endArr, title, startTime, endTime, room } = this.state;
-    const { user, rooms } = this.props;
+    const { user, rooms, toggleAdd } = this.props;
 
     return (
       <form>
@@ -153,6 +153,7 @@ class Timeslot extends Component {
           endSelected && 
           (title !== '' ?
           <button type="button" onClick={(e) => {
+            toggleAdd();
             this.addTimeslot({ UserId: user.id, title: `${user.groupName} ` + title, start: startTime, end: endTime, RoomId: room });
           }}>Schedule Timeslot</button> :
           <h1>Please enter your GroupName in the first input</h1>)
