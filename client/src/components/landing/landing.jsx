@@ -15,9 +15,7 @@ class LandingPage extends Component {
   componentDidMount() {
     const { getRoomData, roomData } = this.props;
 
-    if (roomData.length === 0) {
-      getRoomData();
-    }
+    getRoomData();
   }
 
   render() {
