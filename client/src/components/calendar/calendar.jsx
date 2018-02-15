@@ -26,7 +26,7 @@ class CalendarTab extends Component {
           defaultView={view}
           views={['week', 'day']}
           min={new Date('2018-02-12T16:00:00.113Z')}
-          max={new Date('2018-02-13T03:00:00.113Z')}
+          max={new Date('2018-02-13T05:00:00.113Z')}
           toolbar={false}
         />
       </div>
