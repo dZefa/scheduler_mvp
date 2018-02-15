@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import 'datejs';
+
+import { getAllRoomData } from '../../actions/roomActions';
 
 import CalendarView from '../calendar/calendarView.jsx';
+import Timeslot from './editTimeslot.jsx';
 
 class ManageTimeslot extends Component {
   constructor(props) {
@@ -12,9 +17,17 @@ class ManageTimeslot extends Component {
       timeslotsAdded: false,
       addTimeslot: false,
     };
+    this.refreshPage = this.refreshPage.bind(this);
   }
 
-  async componentDidMount() {
+  refreshPage() {
+    this.props.getRoomData();
+    this.setState({
+      addTimeslot: false,
+    });
+  }
+
+  async updateRoom() {
     const { rooms, user } = this.props;
     const { timeslotsAdded, userTimeslots } = this.state;
 
@@ -23,7 +36,7 @@ class ManageTimeslot extends Component {
     if (!timeslotsAdded) {
       await rooms.forEach(room => {
         room.timeslots.forEach(timeslot => {
-          if (timeslot.UserId === user.id && new Date(timeslot.end) > new Date()) {
+          if (timeslot.UserId === user.id && Date.compare(new Date(timeslot.end), new Date()) === 1) {
             timeslotStorage.push(timeslot);
           }
         });
@@ -33,6 +46,10 @@ class ManageTimeslot extends Component {
         userTimeslots: [...timeslotStorage]
       });
     }
+  }
+
+  componentDidMount() {
+    this.updateRoom();
   }
 
   toggleAddTimeslot() {
@@ -52,7 +69,7 @@ class ManageTimeslot extends Component {
         <CalendarView roomData={rooms} view="day" />
         {
           addTimeslot &&
-          <div>HI</div>
+          <Timeslot refreshPage={this.refreshPage} user={user} rooms={rooms} />
         }
         {
           (user.type === "admin" || (user.type === "group" && userTimeslots.length === 0)) ?
@@ -74,4 +91,10 @@ const TimeslotState = (state) => {
   }
 };
 
-export default connect(TimeslotState)(ManageTimeslot);
+const TimeslotDispatch = (dispatch) => {
+  return {
+    getRoomData: bindActionCreators(getAllRoomData, dispatch),
+  }
+};
+
+export default connect(TimeslotState, TimeslotDispatch)(ManageTimeslot);
