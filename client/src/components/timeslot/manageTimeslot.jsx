@@ -7,6 +7,7 @@ import { getAllRoomData } from '../../actions/roomActions';
 
 import CalendarView from '../calendar/calendarView.jsx';
 import Timeslot from './editTimeslot.jsx';
+import RemoveTimeslot from './removeTimeslot.jsx';
 
 class ManageTimeslot extends Component {
   constructor(props) {
