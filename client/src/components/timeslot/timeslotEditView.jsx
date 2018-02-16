@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import RemoveTimeslots from './removeTimeslot.jsx';
 import Timeslot from './editTimeslot.jsx';
@@ -9,9 +10,30 @@ class TimeslotEditView extends Component {
 
     this.state = {
       addTimeslot: false,
+      allTimeslots: [],
     };
 
     this.toggleAddTimeslot = this.toggleAddTimeslot.bind(this);
+    this.getAllTimeslots = this.getAllTimeslots.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.user.type === 'admin') {
+      this.getAllTimeslots();
+    }
+  }
+
+  getAllTimeslots() {
+    axios.get(`${process.env.REST_SERVER_URL}/api/timeslot`)
+      .then(({ data }) => {
+        console.log('hi: ', data.result);
+        this.setState({
+          allTimeslots: data.result,
+        });
+      })
+      .catch(err => {
+        console.log(`Error inside getAllTimeslots. Error: ${err}`);
+      });
   }
 
   toggleAddTimeslot() {
@@ -24,14 +46,20 @@ class TimeslotEditView extends Component {
 
   render() {
     const { userTimeslots, user, roomData, refreshPage } = this.props;
-    const { addTimeslot } = this.state;
+    const { addTimeslot, allTimeslots } = this.state;
 
     return (
       <div>
         {
-          userTimeslots.length > 0 &&
+          user.type === 'group' && userTimeslots.length > 0 &&
           userTimeslots.map((timeslot, i) => {
             return <RemoveTimeslots key={`remove-${i}`} userTimeslot={timeslot} toggleAdd={this.toggleAddTimeslot} refreshPage={refreshPage} />
+          })
+        }
+        {
+          user.type === 'admin' && 
+          allTimeslots.map((timeslot, i) => {
+            return <RemoveTimeslots key={`remove-admin-${i}`} userTimeslot={timeslot} toggleAdd={this.toggleAddTimeslot} refreshPage={refreshPage} getAllTimeslots={this.getAllTimeslots} />
           })
         }
         {

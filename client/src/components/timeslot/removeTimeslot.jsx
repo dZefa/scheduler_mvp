@@ -19,7 +19,7 @@ class RemoveTimeslotsView extends Component {
   }
 
   render() {
-    const { userTimeslot } = this.props;
+    const { userTimeslot, getAllTimeslots } = this.props;
 
     return (
       <div>
@@ -27,6 +27,9 @@ class RemoveTimeslotsView extends Component {
         <button type="button" onClick={(e) => {
           e.preventDefault();
           this.deleteTimeslot(userTimeslot.id);
+          if (getAllTimeslots !== undefined) {
+            getAllTimeslots();
+          }
         }} >Cancel Reservation</button>
       </div>
     )
