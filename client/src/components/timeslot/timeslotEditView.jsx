@@ -10,13 +10,14 @@ class TimeslotEditView extends Component {
     this.state = {
       addTimeslot: false,
     };
+
     this.toggleAddTimeslot = this.toggleAddTimeslot.bind(this);
   }
 
   componentDidMount() {
-    const { getRoomData, user, roomData } = this.props;
+    const { getUserTimeslot, user } = this.props;
 
-    getRoomData(roomData, user.id);
+    getUserTimeslot(user.id);
   }
 
   toggleAddTimeslot() {
@@ -36,12 +37,12 @@ class TimeslotEditView extends Component {
         {
           userTimeslots.length > 0 &&
           userTimeslots.map((timeslot, i) => {
-            return <RemoveTimeslots key={`remove-${i}`} userTimeslot={timeslot} refreshPage={refreshPage} toggleAdd={this.toggleAddTimeslot} />
+            return <RemoveTimeslots key={`remove-${i}`} userTimeslot={timeslot} toggleAdd={this.toggleAddTimeslot} refreshPage={refreshPage} />
           })
         }
         {
           addTimeslot &&
-          <Timeslot refreshPage={refreshPage} user={user} rooms={roomData} />
+          <Timeslot refreshPage={refreshPage} user={user} rooms={roomData} toggleAdd={this.toggleAddTimeslot} />
         }
         {
           (user.type === "admin" || (user.type === "group" && userTimeslots.length === 0)) ?

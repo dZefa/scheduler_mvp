@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import 'datejs';
 
-import * as roomActions from '../../actions/roomActions';
+import { getAllRoomData } from '../../actions/roomActions';
+import { getUserTimeslots } from '../../actions/timeslotActions';
 
 import CalendarView from '../calendar/calendarView.jsx';
 import TimeslotEditView from './timeslotEditView.jsx';
@@ -17,16 +18,25 @@ class ManageTimeslot extends Component {
   }
 
   refreshPage() {
-    this.props.actions.getAllRoomData();
+    const { user, getRoomData, getUserTimeslot } = this.props;
+
+    getRoomData();
+    getUserTimeslot(user.id);
   }
-  
+
+  componentDidMount() {
+    this.refreshPage();
+  }
+
   render() {
-    const { userTimeslots, rooms, user, actions } = this.props;
+    const { userTimeslots, rooms, user, getUserTimeslot } = this.props;
+
+    console.log(userTimeslots);
 
     return (
       <div>
         <CalendarView roomData={rooms} view="day" />
-        <TimeslotEditView getRoomData={actions.setUserRoomData} roomData={rooms} user={user} userTimeslots={userTimeslots} refreshPage={this.refreshPage} />
+        <TimeslotEditView getUserTimeslot={getUserTimeslot} user={user} userTimeslots={userTimeslots} roomData={rooms} refreshPage={this.refreshPage} />
       </div>
     )
   }
@@ -36,13 +46,14 @@ const TimeslotState = (state) => {
   return {
     rooms: state.room.roomData,
     user: state.auth.user,
-    userTimeslots: state.room.userRoomData,
+    userTimeslots: state.timeslot.userTimeslots,
   }
 };
 
 const TimeslotDispatch = (dispatch) => {
   return {
-    actions: bindActionCreators(roomActions, dispatch),
+    getRoomData: bindActionCreators(getAllRoomData, dispatch),
+    getUserTimeslot : bindActionCreators(getUserTimeslots, dispatch),
   }
 };
 
