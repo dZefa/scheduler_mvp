@@ -18,4 +18,14 @@ const authLogout = () => (dispatch) => {
   dispatch(push('/'));
 };
 
-export { authLogin, authLogout };
+const updateUser = (id) => (dispatch) => {
+  axios.get(`${REST_SERVER_URL}/api/user/${id}`)
+    .then(({ data }) => {
+      dispatch({ type: 'USER_UPDATE_GET_SUCCESS', payload: data.result });
+    })
+    .catch(err => {
+      dispatch({ type: 'USER_UPDATE_GET_FAILED' });
+    });
+};
+
+export { authLogin, authLogout, updateUser };

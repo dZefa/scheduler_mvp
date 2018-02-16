@@ -24,6 +24,14 @@ const authReducer = (state=initialState, action) => {
         authorized: false,
       });
     }
+    case 'USER_UPDATE_GET_SUCCESS': {
+      return Object.assign({}, state, {
+        user: payload,
+      });
+    }
+    case 'USER_UPDATE_GET_FAILED': {
+      return Object.assign({}, state);
+    }
     default : {
       return state;
     }
