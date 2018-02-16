@@ -21,7 +21,7 @@ const cancelTimeslot = (req, res) => {
 };
 
 const updateTimeslotInfo = (req, res) => {
-  updateTimeslot(req.body)
+  updateTimeslot(req.body, req.params.id)
     .then(success => {
       res.status(200).send(success);
     })

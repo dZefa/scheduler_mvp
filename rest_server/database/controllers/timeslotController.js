@@ -49,9 +49,9 @@ const deleteTimeslot = (id) => {
   });
 };
 
-const updateTimeslot = (timeObj) => {
+const updateTimeslot = (timeObj, id) => {
   return new Promise((resolve, reject) => {
-    Timeslot.update(timeObj, { where: { id: timeObj.id } })
+    Timeslot.update(timeObj, { where: { id } })
       .then(updated => {
         if (update[0] === 0) {
           reject(Error(`Timeslot not found`));
