@@ -81,4 +81,16 @@ const deleteUser = (id) => {
   });
 };
 
-export { getPW, createUser, updateUser, getAllUsers, deleteUser };
+const getSingleUser = (id) => {
+  return new Promise((resolve, reject) => {
+    User.findOne({ where: { id } })
+      .then(user => {
+        resolve(user.dataValues);
+      })
+      .catch(err => {
+        console.log(`Error grabbing userId: ${id}. Error: ${err}`);
+      });
+  });
+};
+
+export { getPW, createUser, updateUser, getAllUsers, deleteUser, getSingleUser };
