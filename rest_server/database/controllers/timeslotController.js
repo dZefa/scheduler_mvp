@@ -83,4 +83,21 @@ const getAllUserTimeslots = (id) => {
   });
 };
 
-export { getTimeslots, addTimeslot, deleteTimeslot, updateTimeslot, getAllUserTimeslots };
+const findAllTimeslots = () => {
+  return new Promise((resolve, reject) => {
+    Timeslot.findAll()
+      .then(timeslots => {
+        const timeslotData = [];
+        for (let i = 0; i < timeslots.length; i++) {
+          timeslotData.push(timeslots[i].dataValues);
+        }
+        resolve(timeslotData);
+      })
+      .catch(err => {
+        console.log(`Error finding all Timeslots. Error: ${err}`);
+        reject(err);
+      });
+  });
+};
+
+export { getTimeslots, addTimeslot, deleteTimeslot, updateTimeslot, getAllUserTimeslots, findAllTimeslots };
