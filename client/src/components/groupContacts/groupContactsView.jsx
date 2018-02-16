@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import axios from 'axios';
 
 import ContactView from '../manage/manageGroups/contactView.jsx';
@@ -148,10 +147,4 @@ class GroupContactsView extends Component {
   }
 };
 
-const GroupContactsState = (state) => {
-  return {
-    user: state.auth.user,
-  }
-};
-
-export default connect(GroupContactsState)(GroupContactsView);
+export default GroupContactsView;
