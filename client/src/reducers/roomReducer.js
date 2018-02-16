@@ -1,7 +1,6 @@
 const initialState = {
   roomData: [],
   failed: false,
-  userRoomData: [],
 };
 
 const roomReducer = (state=initialState, action) => {
@@ -16,11 +15,6 @@ const roomReducer = (state=initialState, action) => {
     case 'ROOM_DATA_FAILED': {
       return Object.assign({}, state, {
         failed: true,
-      });
-    }
-    case 'USER_ROOM_DATA_SUCCESS': {
-      return Object.assign({}, state, {
-        userRoomData: payload,
       });
     }
     default : {
