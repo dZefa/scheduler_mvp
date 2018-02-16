@@ -50,6 +50,7 @@ class GroupEditView extends Component {
             <button type="button" onClick={(e) => {
               e.preventDefault();
               this.updateGroup({ groupName }, user.id);
+              this.setDisable();
             }} >Submit Changes</button>
           }
           <button type="button" onClick={(e) => {
