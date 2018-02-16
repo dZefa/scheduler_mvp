@@ -14,12 +14,6 @@ class TimeslotEditView extends Component {
     this.toggleAddTimeslot = this.toggleAddTimeslot.bind(this);
   }
 
-  componentDidMount() {
-    const { getUserTimeslot, user } = this.props;
-
-    getUserTimeslot(user.id);
-  }
-
   toggleAddTimeslot() {
     const { addTimeslot } = this.state;
 
