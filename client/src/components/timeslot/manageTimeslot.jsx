@@ -28,10 +28,28 @@ class ManageTimeslot extends Component {
     this.refreshPage();
   }
 
+  closeTimeslots() {
+    const { userTimeslots } = this.props;
+
+    for (let i = 0; i < userTimeslots.length; i++) {
+      if (Date.compare(Date.parse(userTimeslots[i].end).day(), Date.today().day()) === -1) {
+        axios.put(`${process.env.REST_SERVER_URL}/api/timeslot/${userTimeslots[i].id}`, { finished: true })
+          .then(success => {
+            console.log(success);
+          })
+          .catch(err => {
+            console.log(`Error inside closeTimeslots. Error: ${err}`);
+          });
+      }
+    }
+  }
+
   render() {
     const { userTimeslots, rooms, user, getUserTimeslot } = this.props;
 
-    console.log(userTimeslots);
+    if (userTimeslots.length > 0) {
+      this.closeTimeslots();
+    }
 
     return (
       <div>
