@@ -38,6 +38,10 @@ class Timeslot extends Component {
       changed = true;
     }
 
+    if (Number(hourAndTime[0]) === 12) {
+      changed = true;
+    }
+
     return changed ? hourAndTime.join(':') + ' PM' : hourAndTime.join(':') + ' AM';
   }
 
