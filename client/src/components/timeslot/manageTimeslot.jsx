@@ -53,7 +53,11 @@ class ManageTimeslot extends Component {
 
     return (
       <div>
-        <CalendarView roomData={rooms} view="day" />
+        {
+          user.type === "admin" ?
+          <CalendarView roomData={rooms} toolbar={true} /> :
+          <CalendarView roomData={rooms} view="day" />
+        }
         <TimeslotEditView getUserTimeslot={getUserTimeslot} user={user} userTimeslots={userTimeslots} roomData={rooms} refreshPage={this.refreshPage} />
       </div>
     )
